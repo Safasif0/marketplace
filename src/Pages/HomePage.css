@@ -1,5 +1,3 @@
-/* HomePage.css */
-
 /* تنسيق للرأس */
 .home-header {
   background-color: #4caf50; /* نفس اللون في صفحة تسجيل الدخول */
@@ -13,7 +11,7 @@
   width: 80%;
   margin: 50px auto;
   background-color: white;
-  padding: auto;
+  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -27,8 +25,9 @@
 
 /* تنسيق قائمة المنتجات */
 .product-list {
-  display: center
-  grid-template-columns repeat(auto-fill, minmax(200px, 1fr));
+  display: flex; /* استخدام flexbox */
+  flex-wrap: wrap; /* لكي تتوزع العناصر بشكل جيد في حال كان العرض ضيق */
+  justify-content: space-between; /* توزيع المسافة بين المنتجات */
   gap: 20px;
 }
 
@@ -39,6 +38,8 @@
   border-radius: 8px;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex: 1 1 calc(33.333% - 20px); /* لضبط عرض المنتجات جنب بعض */
+  box-sizing: border-box;
 }
 
 .product img {
@@ -71,6 +72,8 @@
 .product button:hover {
   background-color: #a07145;
 }
+
+/* تنسيق الزر في الشريط السفلي */
 .cardfooter button {
   background-color: #4caf50;
   color: rgb(75, 59, 59);
@@ -81,7 +84,9 @@
   cursor: pointer;
   margin-top: 20px;
   transition: background-color 0.3s ease;
-}/* تنسيق شريط السلة */
+}
+
+/* تنسيق شريط السلة */
 .cart-footer {
   background-color: #0d0e0f;
   padding: 15px 0;
@@ -93,6 +98,3 @@
   left: 0;
   border-top: 1px solid #ddd;
 }
-
-
- 
