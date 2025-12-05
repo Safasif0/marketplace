@@ -1,0 +1,86 @@
+/* تحسين مظهر صفحة إتمام الدفع */
+.checkout-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f4f9fc;
+  text-align: center;
+}
+
+.checkout-container h2 {
+  font-size: 2rem;
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+/* تحسين مظهر تفاصيل السلة */
+.checkout-item {
+  background-color: #4d5c49;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-item img {
+  width: 150px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.checkout-item div {
+  margin :auto;
+}
+
+.checkout-item h3 {
+  font-size: 20px;
+  color: #fdf5f5;
+}
+
+.checkout-item p {
+  font-size: 16px;
+  color: #bda3a3;
+}
+
+/* تحسين مظهر السعر الإجمالي */
+.total-price {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: bold;
+}
+
+/* تحسين مظهر الزر */
+.checkout-container button {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 25px;
+  font-size: 18px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.checkout-container button:hover {
+  background-color: #45a049;
+}
+
+/* تنسيق الزر العائد إلى السلة */
+.checkout-container .back-to-cart-btn {
+  background-color: #ff4d4d;
+  color: rgb(161, 122, 122);
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.checkout-container .back-to-cart-btn:hover {
+  background-color: #e63b3b;
+}

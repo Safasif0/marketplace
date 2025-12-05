@@ -1,0 +1,128 @@
+/* تحسين مظهر رأس الصفحة */
+.cart-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f4f9fc;
+  text-align: center;
+}
+
+/* تحسين مظهر الشريط العلوي */
+.header {
+  background-color: #28a745;
+  padding: 15px 0;
+  margin-bottom: 20px;
+}
+
+.header .logo img {
+  height: 250px;
+  margin-right: 10px;
+}
+
+.cart-container h2 {
+  font-size: 1.8rem;
+  color: #333;
+}
+
+/* تحسين مظهر تفاصيل السلة */
+.cart-item {
+  background-color: #a1c98a;
+  border-radius: CENTER;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 55px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: right;
+}
+
+.cart-item img {
+  height: 120px;
+  width: auto;
+}
+
+.cart-item-details {
+  margin-left: 20px;
+  margin: auto;
+}
+
+.cart-item button {
+  background-color: #0e0e0e;
+  color: rgb(105, 96, 185);
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.cart-item button:hover {
+  background-color: #584747;
+}
+
+/* تنسيق الزر "إزالة" */
+.remove-item {
+  background-color: #e7c3c3;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.remove-item:hover {
+  background-color: #e63b3b;
+}
+
+.remove-item:focus {
+  outline: none;
+}
+
+
+.total-price h3 {
+  font-weight: bold;
+}
+
+/* تنسيق الزر العام */
+.remove-item:hover {
+  background-color: #2e18f0e3;
+   color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.checkout-btn{
+  background-color: #28a3a7;
+  color: rgb(255, 255, 255);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cart-container button:hover {
+  background-color: #218838;
+}
+
+/* تحسين زر الخروج (Logout) */
+.logout-btn {
+  background-color: #e63b3b;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.logout-btn:hover {
+  background-color: #c32f2f;
+}
