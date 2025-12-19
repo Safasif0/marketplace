@@ -1,100 +1,235 @@
-/* تنسيق للرأس */
-.home-header {
-  background-color: #4caf50; /* نفس اللون في صفحة تسجيل الدخول */
+/* ===== Page ===== */
+.page {
+  min-height: 100vh;
+  background: #f6f7f8;
+  padding: 30px 0 70px;
+}
+
+.container {
+  width: min(1500px, 96%);
+  margin: auto;
+}
+
+/* ===== Section Header ===== */
+.section-head {
+  margin-bottom: 22px;
+}
+
+.section-head h2 {
+  font-size: 60px;
+  font-weight: 900;
+  color: #111;
+}
+
+.section-head p {
+  color: #666;
+  font-size: 30px;
+  margin-top: 6px;
+}
+
+/* ===== Grid ===== */
+.products-grid.amazon {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* ✅ 3 في السطر */
+  gap: 28px;
+}
+
+@media (max-width: 1000px) {
+  .products-grid.amazon {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .products-grid.amazon {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Card ===== */
+.amazon-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: 0.25s ease;
+}
+
+.amazon-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== Image ===== */
+.amazon-imgWrap {
+  height: 360px;          /* ✅ صورة كبيرة */
+  background: #f4f4f4;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.amazon-imgWrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ===== Body ===== */
+.amazon-body {
+  padding: 18px;
+}
+
+.amazon-price {
+  font-size: 22px;
+  font-weight: 900;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.amazon-title {
+  font-size: 40px;
+  color: #c20000;
+  line-height: 1.4;
+  margin-bottom: 10px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ===== Rating ===== */
+.amazon-ratingRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+
+}
+
+.stars {
+  color: #ff9900;
+  font-size: 25px;
+}
+
+.rating-value {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.amazon-reviews {
+  font-size: 13px;
+  color: #666;
+}
+
+/* ===== Button ===== */
+.add-to-cart-btn {
+  width: 100%;
+  padding: 12px;
+  background: #2e7d32;
   color: white;
-  padding: 20px;
-  text-align: center;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
 }
 
-/* تنسيق خاص لصفحة المنتجات */
-.home-container {
-  width: 80%;
-  margin: 50px auto;
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.add-to-cart-btn:hover {
+  background: #1b5e20;
 }
 
-.home-container h1 {
+/* ===== Loading ===== */
+.page-loading {
+  padding: 100px;
   text-align: center;
-  color: #333;
-  font-size: 36px;
+  font-size: 18px;
+}
+/* ===== Floating Cart Button ===== */
+.cart-floating {
+  position: fixed;
+  top: 90px;
+  right: 30px;
+  background: #2e7d32;
+  color: white;
+  width: 80px;
+  height: 65px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  z-index: 1000;
+  transition: 0.3s ease;
+}
+
+.cart-floating:hover {
+  background: #1b5e20;
+  transform: scale(1.1);
+}
+
+/* ===== Cart Count Badge ===== */
+.cart-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: red;
+  color: white;
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+/* ===== Media Queries ===== */
+@media (max-width: 600px) {
+  .cart-floating {
+    width: 55px;
+    height: 55px;
+    font-size: 24px;
+    top: 70px;
+    right: 20px;
+  }
+}
+.home-actions {
+  display: flex;
+  justify-content: flex-end;
   margin-bottom: 20px;
 }
 
-/* تنسيق قائمة المنتجات */
-.product-list {
-  display: flex; /* استخدام flexbox */
-  flex-wrap: wrap; /* لكي تتوزع العناصر بشكل جيد في حال كان العرض ضيق */
-  justify-content: space-between; /* توزيع المسافة بين المنتجات */
-  gap: 20px;
+.my-orders-btn {
+  background: #2e7d32;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
 }
 
-.product {
-  background-color: #fff;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  flex: 1 1 calc(33.333% - 20px); /* لضبط عرض المنتجات جنب بعض */
-  box-sizing: border-box;
+.my-orders-btn:hover {
+  background: #1b5e20;
 }
-
-.product img {
-  max-width: 100%;
-  border-radius: 8px;
-}
-
-.product h3 {
-  font-size: 24px;
-  margin-top: 10px;
-}
-
-.product p {
-  font-size: 18px;
+.flags-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 12px 18px;
+  background: #ffeb3b;
   color: #333;
-  margin-top: 10px;
+  font-weight: 700;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: 0.2s;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
-.product button {
-  background-color: #4caf50;
-  color: rgb(124, 51, 51);
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.product button:hover {
-  background-color: #a07145;
-}
-
-/* تنسيق الزر في الشريط السفلي */
-.cardfooter button {
-  background-color: #4caf50;
-  color: rgb(75, 59, 59);
-  border: 50px;
-  padding: 12px 25px;
-  font-size: 18px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: background-color 0.3s ease;
-}
-
-/* تنسيق شريط السلة */
-.cart-footer {
-  background-color: #0d0e0f;
-  padding: 15px 0;
-  text-align: center;
-  font-size: 1rem;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  left: 0;
-  border-top: 1px solid #ddd;
+.flags-btn:hover {
+  background: #fdd835;
+  transform: translateY(-2px);
 }

@@ -72,14 +72,14 @@ button {
   color: white;
   border: none;
   border-radius: 6px;
-  font-size: 25px;
+  font-size: 30px;
   cursor: pointer;
 }
 
 .error {
   color: red;
   margin-bottom: 15px;
-    font-size: 50px;
+  font-size: 50px;
 }
 
 /* RIGHT */

@@ -1,65 +1,77 @@
-import React, { useState, useEffect } from 'react';
-import './CartPage.css'; // استيراد ملف CSS الخاص بصفحة السلة
+import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+import "./CartPage.css";
 
-const CartPage = () => {
-  const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
+function CartPage() {
+  const {
+    cart,
+    increaseQty,
+    decreaseQty,
+    removeFromCart,
+  } = useCart();
 
-  // حفظ السلة في الـ localStorage
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
+  const total = cart.reduce(
+    (sum, item) => sum + item.price * item.qty,
+    0
+  );
 
-  // حساب الإجمالي
-  const totalPrice = cart.reduce((total, product) => total + (product.price * product.quantity), 0);
-
-  // دالة لإزالة منتج من السلة
-  const removeFromCart = (productId) => {
-    const updatedCart = cart.filter(item => item.id !== productId);
-    setCart(updatedCart); // تحديث السلة
-  };
-
-  // دالة لتسجيل الخروج
-  const logout = () => {
-    setCart([]); // مسح السلة
-    localStorage.removeItem('cart'); // مسح السلة من localStorage
-    window.location.href = '/'; // العودة للصفحة الرئيسية
-  };
+  if (cart.length === 0) {
+    return (
+      <div className="cart-empty">
+        <h2>Your cart is empty</h2>
+        <p>Looks like you haven’t added anything yet</p>
+        <Link to="/home">Continue Shopping</Link>
+      </div>
+    );
+  }
 
   return (
-    <div className="cart-container">
-      <header className="header">
-        <div className="logo">
-          <img src="/images/logo.png.jpg" alt="Logo" />
-          <h1> TECH HUB Cart</h1>
-        </div>
-      </header>
+    <div className="cart-wrapper">
+      {/* LEFT */}
+      <div className="cart-left">
+        <h1>Your Cart</h1>
 
-      <h2> CART ITEMS </h2>
+        {cart.map((item) => (
+          <div className="cart-item" key={item._id}>
+            <img src={item.image} alt={item.title} />
 
-      {cart.length === 0 ? (
-        <p>EMPTY CART</p>
-      ) : (
-        <div>
-          {cart.map((product) => (
-            <div key={product.id} className="cart-item">
-              <img src={product.image} alt={product.name} />
-              <div className="cart-item-details">
-                <h3>{product.name}</h3>
-                <p>Price: {product.price} EG</p>
-                <p>AMOUNT: {product.quantity}</p>
-                <button onClick={() => removeFromCart(product.id)} className="remove-item">REMOVE item </button>
+            <div className="cart-info">
+              <h3>{item.title}</h3>
+              <p>{item.price} EGP</p>
+
+              {/* ➕ / ➖ */}
+              <div className="qty-controls">
+                <button onClick={() => decreaseQty(item._id)}>−</button>
+                <span>{item.qty}</span>
+                <button onClick={() => increaseQty(item._id)}>+</button>
               </div>
             </div>
-          ))}
 
-        
-          <button onClick={() => window.location.href = '/checkout'} className="checkout-btn">checkout</button>
+            <button
+              className="remove-btn"
+              onClick={() => removeFromCart(item._id)}
+            >
+              ✕
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* RIGHT */}
+      <div className="cart-summary">
+        <h2>Order Summary</h2>
+
+        <div className="summary-row">
+          <span>Total</span>
+          <strong>{total} EGP</strong>
         </div>
-      )}
 
-      <button onClick={logout} className="logout-btn">log out</button>
+     <Link to="/checkout">
+  <button className="checkout-btn">Proceed to Checkout</button>
+</Link>
+      </div>
     </div>
   );
-};
+}
 
 export default CartPage;

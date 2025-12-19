@@ -1,12 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';  // تأكد من استخدام 'react-dom/client'
-import './index.css';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
 
-// استخدام createRoot بدلاً من render (للإصدارات الحديثة من React)
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+    
   </React.StrictMode>
 );

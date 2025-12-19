@@ -1,62 +1,79 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // استيراد useNavigate للتوجيه
-import './LoginPage.css'; // استيراد ملف CSS الخاص بصفحة تسجيل الدخول
-const LoginPage = () => {
-  // الحالة لتخزين اسم المستخدم وكلمة المرور
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // استخدام useNavigate للتوجيه
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../services/auth.api";
+import "./LoginPage.css";
 
-  // دالة التعامل مع تسجيل الدخول
-  const handleLogin = (e) => {
-    e.preventDefault(); // منع إعادة تحميل الصفحة عند تقديم الفورم
+function LoginPage() {
+  const navigate = useNavigate();
 
-    // تحقق من صحة اسم المستخدم وكلمة المرور
-    if (username === 'safasifo' && password === 'admin123') {
-      // إذا كانت البيانات صحيحة، يتم التوجيه إلى صفحة المنتجات
-      navigate('/home'); // توجيه إلى /home (صفحة المنتجات)
-    } else {
-      alert('inncorect DATA!');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      const res = await login({ email, password });
+      localStorage.setItem("token", res.data.token);
+
+      // ✅ redirect to home
+      navigate("/home");
+    } catch (err) {
+      setError("Login failed, try again");
     }
   };
 
   return (
-    <div className="container">
-      <header className="header">
-        <div className="logo">
-          <img src="/images/logo.png.jpg" alt="Logo" />
-          <h1>Welcome to TECH HUB</h1>
+    <div className="login-wrapper">
+      {/* LEFT */}
+      <div className="login-left">
+        {/* LOGO + TECH HUB */}
+        <div className="brand-wrapper">
+          <img src="images\logo.png.jpg" className="brand-logo" />
+          <h1 className="brand">TECH HUB</h1>
         </div>
-      </header>
 
-      <div className="form-container">
         <h2>Login</h2>
+        <p className="subtitle">
+          Don’t have an account? <Link to="/signup">Create one</Link>
+        </p>
+
+        {error && <p className="error">{error}</p>}
+
         <form onSubmit={handleLogin}>
-          <label>Username</label>
+          <label>Email Address</label>
           <input
-            className="input-field"
-            type="text"
-            placeholder="Enter your username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)} // تحديث اسم المستخدم
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           <label>Password</label>
           <input
-            className="input-field"
             type="password"
             placeholder="Enter your password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)} // تحديث كلمة المرور
+            onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button className="button" type="submit">Login</button>
+          <button type="submit">Log In</button>
         </form>
       </div>
 
-      <button className="logout-btn">Logout</button>
+      {/* RIGHT */}
+      <div className="login-right">
+        <div className="overlay">
+          <h2>Welcome Back 👋</h2>
+          <p>
+            Login to access your buyer dashboard and explore the marketplace.
+          </p>
+        </div>
+      </div>
     </div>
   );
-};
+}
 
 export default LoginPage;
