@@ -40,6 +40,10 @@ function App() {
         />
 
         <Route
+          path="/orders/:id"
+          element={isAuthenticated() ? <ProductDetails /> : <Navigate to="/login" />}
+        />
+        <Route
           path="/report-flag"
           element={isAuthenticated() ? <CreateFlag /> : <Navigate to="/login" />}
         />
@@ -48,8 +52,7 @@ function App() {
           path="/flags"
           element={isAuthenticated() ? <FlagsList /> : <Navigate to="/login" />}
         />
-    
-
+        
       </Routes>
     </CartProvider>
   );

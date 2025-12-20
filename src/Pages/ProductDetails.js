@@ -1,78 +1,109 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API from "./api";
 import "./ProductDetails.css";
-import { useCart } from "../context/CartContext";
-import { Link } from "react-router-dom";
 
-function ProductDetails() {
+export default function ProductDetails() {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
-
-  const { cart, addToCart } = useCart();
+  const navigate = useNavigate();
+  const [order, setOrder] = useState(null);
+  const [rating, setRating] = useState("");
+  const [comment, setComment] = useState("");
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/products/${id}`)
-      .then((res) => setProduct(res.data))
-      .catch((err) => console.error(err));
+      .get(`http://localhost:4000/orders/${id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((res) => setOrder(res.data));
   }, [id]);
 
-  if (!product) return <div className="page-loading">Loading...</div>;
+  if (!order) return <p>Loading...</p>;
+
+  const submitReview = async () => {
+    await axios.put(
+      `http://localhost:4000/orders/${id}/review`,
+      { rating, comment },
+      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    );
+    alert("Review submitted ✅");
+    navigate("/my-orders");
+  };
 
   return (
-    <>
-      {/* ✅ Floating Cart Button */}
-      {cart.length > 0 && (
-        <Link to="/cart" className="cart-floating">
-          🛒
-          <span className="cart-count">{cart.length}</span>
-        </Link>
+    <div className="order-details-page">
+      <button onClick={() => navigate(-1)}>← Back</button>
+
+      <h2>Order Details</h2>
+      <p>Status: {order.status}</p>
+
+      {order.items.map((i, idx) => (
+        <div key={idx}>
+          {i.title} × {i.qty}
+        </div>
+      ))}
+
+      {order.status === "delivered" && !order.rating && (
+        <div className="review-box">
+          <select value={rating} onChange={(e) => setRating(e.target.value)}>
+            <option value="">Select rating</option>
+            {[1,2,3,4,5].map(n => (
+              <option key={n} value={n}>{n} ⭐</option>
+            ))}
+          </select>
+
+          <textarea
+            placeholder="Write comment"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          />
+
+          <button onClick={submitReview}>Submit</button>
+        </div>
       )}
 
-      <div className="details-page">
-        <div className="details-container">
-
-          {/* IMAGE */}
-          <div className="details-image">
-            <img src={product.image} alt={product.title} />
-          </div>
-
-          {/* INFO */}
-          <div className="details-info">
-            <h1 className="details-title">{product.title}</h1>
-
-            <div className="details-rating">
-              <span className="stars">★★★★☆</span>
-              <span className="rating-value">4.2</span>
-              <span className="reviews">(120 reviews)</span>
-            </div>
-
-            <div className="details-price">
-              {product.price} EGP
-            </div>
-
-            <p className="details-desc">
-              {product.description || "No description provided."}
-            </p>
-
-            <p className="details-seller">
-              Seller: <strong>{product.seller?.name}</strong>
-            </p>
-
-            {/* ✅ Add to Cart */}
-            <button
-              className="details-cart-btn"
-              onClick={() => addToCart(product)}
-            >
-              Add to Cart
-            </button>
-          </div>
-
+      {order.rating && (
+        <div className="order-review">
+          ⭐ {order.rating}/5
+          <p>{order.comment}</p>
         </div>
-      </div>
-    </>
+      )}
+
+      {/* ⭐ REVIEW SECTION */}
+      {order.status === "delivered" && !order.rating && (
+        <div className="review-box">
+          <h3>Rate this order</h3>
+
+          <select
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}
+          >
+            <option value="">Select rating</option>
+            {[1, 2, 3, 4, 5].map((n) => (
+              <option key={n} value={n}>
+                {n} ⭐
+              </option>
+            ))}
+          </select>
+
+          <textarea
+            placeholder="Write your comment"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          />
+
+          <button onClick={submitReview}>Submit</button>
+        </div>
+      )}
+
+      {/* ⭐ SHOW REVIEW */}
+      {order.rating && (
+        <div className="order-review">
+          ⭐ {order.rating}/5
+          <p>{order.comment}</p>
+        </div>
+      )}
+    </div>
   );
 }
-
-export default ProductDetails;

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getMyOrders } from "../services/buyer.api";
 import "./MyOrders.css";
 
@@ -13,9 +14,7 @@ function MyOrders() {
   }, []);
 
   if (loading) return <div className="page-loading">Loading...</div>;
-
-  if (orders.length === 0)
-    return <h2 className="empty-orders">No orders yet</h2>;
+  if (orders.length === 0) return <h2>No orders yet</h2>;
 
   return (
     <div className="my-orders-page">
@@ -24,29 +23,28 @@ function MyOrders() {
       {orders.map((order) => (
         <div className="order-card" key={order._id}>
           <div className="order-header">
-            <span>
-              Date: {new Date(order.createdAt).toLocaleDateString()}
-            </span>
-            <span className={`status ${order.status}`}>
-              {order.status}
-            </span>
+            <span>{new Date(order.createdAt).toLocaleDateString()}</span>
+            <span className={`status ${order.status}`}>{order.status}</span>
           </div>
 
           {order.items.map((item, i) => (
-            <div className="order-item" key={i}>
-              <span>
-                {item.title} × {item.qty}
-              </span>
-              <strong>{item.price * item.qty} EGP</strong>
+            <div key={i}>
+              {item.title} × {item.qty}
             </div>
           ))}
-<span className={`status ${order.status}`}>
-  {order.status}
-</span>
 
-          <div className="order-total">
-            Total: <strong>{order.totalPrice} EGP</strong>
-          </div>
+          {order.rating && (
+            <div className="order-review">
+              ⭐ {order.rating}/5
+              <p>{order.comment}</p>
+            </div>
+          )}
+
+          {order.status === "delivered" && !order.rating && (
+            <Link to={`/orders/${order._id}`}>✍️ Rate this order</Link>
+          )}
+
+          <strong>Total: {order.totalPrice} EGP</strong>
         </div>
       ))}
     </div>
