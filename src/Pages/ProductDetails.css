@@ -120,6 +120,10 @@
   color: #444;
 }
 
+.product-details-image{
+  max-width: 350px;
+}
+
 /* Responsive */
 @media (max-width: 860px) {
   .details-container {

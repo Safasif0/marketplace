@@ -2,7 +2,7 @@
 .page {
   min-height: 100vh;
   background: #f6f7f8;
-  padding: 30px 0 70px;
+  padding: 10px 0 70px;
 }
 
 .container {
@@ -25,6 +25,10 @@
   color: #666;
   font-size: 30px;
   margin-top: 6px;
+}
+
+.brand-logo-inner {
+  width: 100px;
 }
 
 /* ===== Grid ===== */
@@ -62,7 +66,7 @@
 
 /* ===== Image ===== */
 .amazon-imgWrap {
-  height: 360px;          /* ✅ صورة كبيرة */
+  height: 360px; /* ✅ صورة كبيرة */
   background: #f4f4f4;
   padding: 18px;
   display: flex;
@@ -83,14 +87,13 @@
 
 .amazon-price {
   font-size: 22px;
-  font-weight: 900;
-  color: #111;
+  color: #414141;
   margin-bottom: 10px;
 }
 
 .amazon-title {
-  font-size: 40px;
-  color: #c20000;
+  font-size: 20px;
+  color: #cf5e29;
   line-height: 1.4;
   margin-bottom: 10px;
 
@@ -106,7 +109,6 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 14px;
-
 }
 
 .stars {
@@ -161,7 +163,7 @@
   justify-content: center;
   font-size: 28px;
   text-decoration: none;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
   z-index: 1000;
   transition: 0.3s ease;
 }
@@ -199,7 +201,8 @@
 }
 .home-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
 }
 
@@ -215,18 +218,20 @@
 
 .my-orders-btn:hover {
   background: #1b5e20;
+  color: white;
 }
+
 .flags-btn {
   display: inline-block;
-  margin-bottom: 20px;
   padding: 12px 18px;
+  margin: 0 10px;
   background: #ffeb3b;
   color: #333;
   font-weight: 700;
   border-radius: 10px;
   text-decoration: none;
   transition: 0.2s;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .flags-btn:hover {

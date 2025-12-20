@@ -18,7 +18,11 @@ function MyOrders() {
 
   return (
     <div className="my-orders-page">
-      <h1>My Orders</h1>
+      <Link to="/home">
+        <img src="images\logo.svg" className="brand-logo-inner" />
+      </Link>
+
+      <h1 className="text-center">My Orders</h1>
 
       {orders.map((order) => (
         <div className="order-card" key={order._id}>

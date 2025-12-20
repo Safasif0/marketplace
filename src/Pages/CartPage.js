@@ -37,7 +37,7 @@ function CartPage() {
 
             <div className="cart-info">
               <h3>{item.title}</h3>
-              <p>{item.price} EGP</p>
+              <p>{item.price.toLocaleString('en-EG')} EGP</p>
 
               {/* ➕ / ➖ */}
               <div className="qty-controls">
@@ -63,7 +63,7 @@ function CartPage() {
 
         <div className="summary-row">
           <span>Total</span>
-          <strong>{total} EGP</strong>
+          <strong>{total.toLocaleString('en-EG')} EGP</strong>
         </div>
 
      <Link to="/checkout">

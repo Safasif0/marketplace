@@ -41,9 +41,9 @@ function Signup() {
   return (
     <div className="login-wrapper">
       <div className="login-left">
-        <div className="brand-wrapper">
-          <img src="images\logo.png.jpg" className="brand-logo" />
-          <h1 className="brand">TECH HUB</h1>
+        <div className="text-center mb-3">
+          <img src="images\logo.svg" className="brand-logo" />
+          <div className="brand">Buyer App</div>
         </div>
 
         <h2>Sign Up</h2>

@@ -30,17 +30,10 @@ function LoginPage() {
       {/* LEFT */}
       <div className="login-left">
         {/* LOGO + TECH HUB */}
-        <div className="brand-wrapper">
-          <img src="images\logo.png.jpg" className="brand-logo" />
-          <h1 className="brand">TECH HUB</h1>
+        <div className="text-center mb-3">
+          <img src="images\logo.svg" className="brand-logo" />
+          <div className="brand">Buyer App</div>
         </div>
-
-        <h2>Login</h2>
-        <p className="subtitle">
-          Don’t have an account? <Link to="/signup">Create one</Link>
-        </p>
-
-        {error && <p className="error">{error}</p>}
 
         <form onSubmit={handleLogin}>
           <label>Email Address</label>
@@ -61,6 +54,10 @@ function LoginPage() {
 
           <button type="submit">Log In</button>
         </form>
+        <p className="subtitle">
+          Don’t have an account? <Link to="/signup">Create one</Link>
+        </p>
+        {error && <p className="error">{error}</p>}
       </div>
 
       {/* RIGHT */}
