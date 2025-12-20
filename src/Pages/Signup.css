@@ -105,3 +105,13 @@ button {
   font-size: 25px;
   line-height: 1.6;
 }
+
+@media (max-width: 768px) {
+  .login-wrapper {
+    flex-direction: column;
+  }
+
+  .login-right{
+    display: none;
+  }
+}

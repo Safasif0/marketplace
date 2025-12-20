@@ -10,7 +10,7 @@ export default function ProductDetails() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/products/${id}`, {
+      .get(`https://backend-production-8943.up.railway.app/products/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
