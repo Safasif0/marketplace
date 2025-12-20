@@ -1,12 +1,15 @@
 import { useState } from "react";
-import axios from "axios";
 import { useCart } from "../context/CartContext";
+import { createOrder } from "../services/buyer.api";
 import "./CheckoutPage.css";
 
 function CheckoutPage() {
   const { cart, clearCart } = useCart();
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const total = cart.reduce(
+    (sum, item) => sum + item.price * item.qty,
+    0
+  );
 
   const [form, setForm] = useState({
     name: "",
@@ -16,7 +19,8 @@ function CheckoutPage() {
     payment: "cash",
   });
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,15 +30,17 @@ function CheckoutPage() {
       return;
     }
 
-    // ✅ لو seller مش موجود هنوقف ونقولك
-    const hasMissingSeller = cart.some((i) => !i.seller);
-    if (hasMissingSeller) {
-      alert("Some cart items missing seller id. Clear cart and add again.");
+    // 🛡️ حماية من null
+    const hasInvalidItem = cart.some(
+      (i) => !i._id || !i.seller
+    );
+    if (hasInvalidItem) {
+      alert("Cart has invalid items, clear cart and add again");
       return;
     }
 
     try {
-      await axios.post("http://localhost:4000/orders", {
+      await createOrder({
         buyer: {
           name: form.name,
           phone: form.phone,
@@ -46,10 +52,9 @@ function CheckoutPage() {
           title: item.title,
           price: item.price,
           qty: item.qty,
-          seller: item.seller, // ✅ دلوقتي ثابت
+          seller: item.seller,
         })),
         totalPrice: total,
-        paymentMethod: form.payment,
       });
 
       alert("Order placed successfully ✅");
@@ -65,42 +70,13 @@ function CheckoutPage() {
       <form className="checkout-form" onSubmit={handleSubmit}>
         <h1>Checkout</h1>
 
-        <label>Full Name *</label>
-        <input name="name" value={form.name} onChange={handleChange} placeholder="Your name" />
+        <input name="name" value={form.name} onChange={handleChange} placeholder="Name" />
+        <input name="phone" value={form.phone} onChange={handleChange} placeholder="Phone" />
+        <textarea name="address" value={form.address} onChange={handleChange} placeholder="Address" />
+        <input name="city" value={form.city} onChange={handleChange} placeholder="City" />
 
-        <label>Phone *</label>
-        <input name="phone" value={form.phone} onChange={handleChange} placeholder="01XXXXXXXXX" />
-
-        <label>Address *</label>
-        <textarea name="address" value={form.address} onChange={handleChange} placeholder="Street, building, apartment" />
-
-        <label>City</label>
-        <input name="city" value={form.city} onChange={handleChange} placeholder="Cairo" />
-
-        <label>Payment Method</label>
-        <select name="payment" value={form.payment} onChange={handleChange}>
-          <option value="cash">Cash on Delivery</option>
-          <option value="card">Credit Card (UI Only)</option>
-        </select>
-
-        <button type="submit" className="place-order-btn">Place Order</button>
+        <button type="submit">Place Order</button>
       </form>
-
-      <div className="checkout-summary">
-        <h2>Order Summary</h2>
-
-        {cart.map((item) => (
-          <div key={item._id} className="summary-item">
-            <span>{item.title} × {item.qty}</span>
-            <strong>{item.price * item.qty} EGP</strong>
-          </div>
-        ))}
-
-        <div className="summary-total">
-          <span>Total</span>
-          <strong>{total} EGP</strong>
-        </div>
-      </div>
     </div>
   );
 }

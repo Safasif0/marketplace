@@ -48,6 +48,8 @@ function App() {
           path="/flags"
           element={isAuthenticated() ? <FlagsList /> : <Navigate to="/login" />}
         />
+    
+
       </Routes>
     </CartProvider>
   );

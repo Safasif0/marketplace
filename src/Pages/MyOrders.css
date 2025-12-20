@@ -125,3 +125,26 @@
     font-size: 17px;
   }
 }
+.status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  text-transform: capitalize;
+}
+
+.status.pending {
+  background: #ffeaa7;
+}
+
+.status.confirmed {
+  background: #74b9ff;
+  color: #fff;
+}
+
+.status.shipped {
+  background: #fdcb6e;
+}
+
+.status.delivered {
+  background: #55efc4;
+}

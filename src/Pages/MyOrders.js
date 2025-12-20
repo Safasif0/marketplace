@@ -40,6 +40,9 @@ function MyOrders() {
               <strong>{item.price * item.qty} EGP</strong>
             </div>
           ))}
+<span className={`status ${order.status}`}>
+  {order.status}
+</span>
 
           <div className="order-total">
             Total: <strong>{order.totalPrice} EGP</strong>
