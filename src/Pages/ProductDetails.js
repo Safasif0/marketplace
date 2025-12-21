@@ -8,37 +8,52 @@ export default function ProductDetails() {
   const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
-  const [reviewsData, setReviewsData] = useState(null);
+  const [reviews, setReviews] = useState([]);
+  const [averageRating, setAverageRating] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:4000/products/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        const productData = res.data;
-        setProduct(productData);
+    async function fetchData() {
+      try {
+        // 1️⃣ Product
+        const productRes = await axios.get(
+          `http://localhost:4000/products/${id}`
+        );
+        setProduct(productRes.data);
 
-        // ⭐ build reviews data safely
-        const reviews = productData.reviews || [];
-        const numReviews = reviews.length;
-        const averageRating =
-          numReviews > 0
-            ? reviews.reduce((sum, r) => sum + r.rating, 0) / numReviews
-            : 0;
+        // 2️⃣ Reviews
+        const reviewsRes = await axios.get(
+          `http://localhost:4000/orders/product/${id}/reviews`
+        );
 
-        setReviewsData({
-          reviews,
-          numReviews,
-          averageRating,
-        });
-      })
-      .catch(console.error);
+        const data = reviewsRes.data;
+
+        // ✅ لو Object
+        if (data.reviews) {
+          setReviews(data.reviews);
+          setAverageRating(data.averageRating || 0);
+        }
+        // ✅ لو Array
+        else if (Array.isArray(data)) {
+          setReviews(data);
+          if (data.length > 0) {
+            const avg =
+              data.reduce((sum, r) => sum + r.rating, 0) / data.length;
+            setAverageRating(avg);
+          }
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
   }, [id]);
 
-  if (!product) return <p>Loading...</p>;
+  if (loading) return <p>Loading...</p>;
+  if (!product) return <p>Product not found</p>;
 
   return (
     <div className="product-details-page">
@@ -59,23 +74,25 @@ export default function ProductDetails() {
       <p>{product.description}</p>
       <p>Delivery Time: {product.deliveryTime} days</p>
 
-      {/* ⭐ RATING */}
-      {reviewsData && reviewsData.numReviews > 0 && (
-        <div className="product-rating">
-          <h3>
-            ⭐ {reviewsData.averageRating.toFixed(1)} / 5 (
-            {reviewsData.numReviews} reviews)
-          </h3>
+      {/* ⭐ Reviews */}
+      <div className="product-rating">
+        <h3>
+          ⭐ {reviews.length > 0 ? averageRating.toFixed(1) : "No rating yet"} / 5
+          {reviews.length > 0 && ` (${reviews.length} reviews)`}
+        </h3>
 
-          {reviewsData.reviews.map((r, i) => (
-            <div className="review-box" key={i}>
-              <strong>{r.buyerName || "Anonymous"}</strong>
-              <span> — ⭐ {r.rating}</span>
-              <p>{r.comment}</p>
+        {reviews.length > 0 ? (
+          reviews.map((review) => (
+            <div className="review-box" key={review._id}>
+              <strong>{review.buyerUser?.name || "Anonymous"}</strong>
+              <span> — ⭐ {review.rating}</span>
+              <p>{review.comment}</p>
             </div>
-          ))}
-        </div>
-      )}
+          ))
+        ) : (
+          <p>No reviews yet.</p>
+        )}
+      </div>
     </div>
   );
 }
