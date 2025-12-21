@@ -1,0 +1,86 @@
+.order-rating-page {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: Arial, sans-serif;
+}
+
+.order-rating-page button {
+  background: none;
+  border: none;
+  color: #555;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.order-rating-page h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.order-rating-page ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.order-rating-page li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.rating-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rating-box label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.rating-box select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.rating-box textarea {
+  min-height: 90px;
+  resize: vertical;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.rating-box textarea:focus,
+.rating-box select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.rating-box button {
+  margin-top: 10px;
+  padding: 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.rating-box button:hover {
+  background-color: #0056b3;
+}

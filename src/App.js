@@ -10,6 +10,8 @@ import MyOrders from "./Pages/MyOrders";
 import { CartProvider } from "./context/CartContext";
 import FlagsList from "./Pages/FlagsList";
 import CreateFlag from "./Pages/CreateFlag";
+import OrderRating from "./Pages/OrderRating";
+
 
 const isAuthenticated = () => !!localStorage.getItem("token");
 
@@ -52,7 +54,9 @@ function App() {
           path="/flags"
           element={isAuthenticated() ? <FlagsList /> : <Navigate to="/login" />}
         />
-        
+<Route
+ path="/OrderRating/:orderId" element={<OrderRating />} />
+
       </Routes>
     </CartProvider>
   );

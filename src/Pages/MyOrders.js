@@ -45,7 +45,9 @@ function MyOrders() {
           )}
 
           {order.status === "delivered" && !order.rating && (
-            <Link to={`/orders/${order._id}`}>✍️ Rate this order</Link>
+          <Link to={`/order-rating/${order._id}`}>
+  ✍️ Rate this order
+</Link>
           )}
 
           <strong>Total: {order.totalPrice} EGP</strong>
