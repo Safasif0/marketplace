@@ -55,7 +55,10 @@ function App() {
           element={isAuthenticated() ? <FlagsList /> : <Navigate to="/login" />}
         />
 <Route
- path="/OrderRating/:orderId" element={<OrderRating />} />
+  path="/order-rating/:orderId"
+  element={<OrderRating />}
+/>
+
 
       </Routes>
     </CartProvider>
