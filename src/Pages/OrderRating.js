@@ -14,7 +14,7 @@ export default function OrderRating() {
 
   useEffect(() => {
     axios
-      .get(`https://backend-production-8943.up.railway.ap/orders/${orderId}`, {
+      .get(`https://backend-production-8943.up.railway.app/orders/${orderId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
