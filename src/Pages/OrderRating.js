@@ -14,7 +14,7 @@ export default function OrderRating() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/orders/${orderId}`, {
+      .get(`https://backend-production-8943.up.railway.ap/orders/${orderId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -30,7 +30,7 @@ export default function OrderRating() {
   const submitRating = () => {
     axios
       .put(
-        `http://localhost:4000/orders/${orderId}/review`,
+        `https://backend-production-8943.up.railway.app/orders/${orderId}/review`,
         { rating, comment },
         {
           headers: {

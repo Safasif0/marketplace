@@ -15,7 +15,7 @@ function CreateFlag() {
 
   useEffect(() => {
     axios
-      .get("https://backend-production-8943.up.railway.app/products")
+      .get("https://backend-production-8943.up.railway.ap/products")
       .then((res) => setProducts(res.data))
       .finally(() => setLoadingProducts(false));
   }, []);
@@ -27,7 +27,7 @@ function CreateFlag() {
     e.preventDefault();
 
     try {
-      await axios.post("https://backend-production-8943.up.railway.app/flags", form, {
+      await axios.post("https://backend-production-8943.up.railway.ap/flags", form, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

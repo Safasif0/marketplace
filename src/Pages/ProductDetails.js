@@ -17,13 +17,13 @@ export default function ProductDetails() {
       try {
         // 1️⃣ Product
         const productRes = await axios.get(
-          `http://localhost:4000/products/${id}`
+          `/products/${id}`
         );
         setProduct(productRes.data);
 
         // 2️⃣ Reviews
         const reviewsRes = await axios.get(
-          `http://localhost:4000/orders/product/${id}/reviews`
+          `https://backend-production-8943.up.railway.app/orders/product/${id}/reviews`
         );
 
         const data = reviewsRes.data;
